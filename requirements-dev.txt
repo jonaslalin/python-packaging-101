@@ -1,0 +1,7 @@
+black
+build
+debugpy
+mypy
+ruff
+tox
+twine
