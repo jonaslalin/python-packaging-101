@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mypackage1"
+version = "0.0.1"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+    {name = "My Name", email = "my.name@example.com"},
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+packages = [
+    "mypkg",
+    "mypkg.subpkg1",
+    "mypkg.subpkg2",
+    "otherpkg",
+    "otherpkg.subpkg1",
+]
+py-modules = [
+    "myutils",
+]
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+line-length = 120
+select = [
+    "F",      # Pyflakes
+    "E", "W", # pycodestyle
+    "C90",    # mccabe
+    "I",      # isort
+    "N",      # pep8-naming
+    "UP",     # pyupgrade
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+]
+src = ["."]
