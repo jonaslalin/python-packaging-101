@@ -1,7 +1,11 @@
 __pycache__/
+.mypy_cache/
+.pytest_cache/
 .tox/
 .venv/
+.vscode/
 *.egg-info/
 dist/
 
+.coverage
 .DS_Store

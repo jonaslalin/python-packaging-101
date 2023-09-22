@@ -22,7 +22,7 @@ packages = [
     "otherpkg.subpkg1",
 ]
 py-modules = [
-    "myutils",
+    "fibo",
 ]
 
 [tool.setuptools.dynamic]
@@ -30,6 +30,49 @@ dependencies = {file = "requirements.txt"}
 
 [tool.black]
 line-length = 120
+
+[tool.coverage.run]
+branch = true
+command_line = "-m pytest"
+disable_warnings = [
+    "module-not-imported",
+    "no-data-collected",
+]
+source_pkgs = [
+    "mypkg",
+    "mypkg.subpkg1",
+    "mypkg.subpkg2",
+    "otherpkg",
+    "otherpkg.subpkg1",
+    "fibo",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+
+[tool.mypy]
+python_version = "3.8"
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+strict_equality = true
+check_untyped_defs = true
+disallow_subclassing_any = true
+disallow_untyped_decorators = true
+disallow_any_generics = true
+disallow_untyped_calls = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+no_implicit_reexport = true
+warn_return_any = true
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+    "--verbose",
+]
+testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 120
@@ -42,5 +85,6 @@ select = [
     "UP",     # pyupgrade
     "B",      # flake8-bugbear
     "C4",     # flake8-comprehensions
+    "PT",     # flake8-pytest-style
 ]
 src = ["."]
