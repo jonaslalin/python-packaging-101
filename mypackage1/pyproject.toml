@@ -20,6 +20,7 @@ packages = [
     "mypkg.subpkg2",
     "otherpkg",
     "otherpkg.subpkg1",
+    "otherpkg.subpkg1.resources1",
 ]
 py-modules = [
     "fibo",
@@ -44,6 +45,7 @@ source_pkgs = [
     "mypkg.subpkg2",
     "otherpkg",
     "otherpkg.subpkg1",
+    "otherpkg.subpkg1.resources1",
     "fibo",
 ]
 

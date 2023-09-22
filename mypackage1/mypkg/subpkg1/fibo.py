@@ -1,5 +1,4 @@
 from typing import List
-from typing_extensions import reveal_type
 from fibo import fib2
 
 
