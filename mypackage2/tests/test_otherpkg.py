@@ -6,7 +6,6 @@ from otherpkg.subpkg1.subsubpkg1.python import python_version
 
 
 def test_reduce() -> None:
-    type
     assert reduce(1, 2, 3, 4, 5, acc=0) == 15
     assert reduce("a", "b", "c", acc="") == "abc"
 

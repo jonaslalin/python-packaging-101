@@ -1,7 +1,9 @@
-from typing import List, cast
-import otherpkg.subpkg1.resources1 as resources1
-from importlib_resources import files
 import json
+from typing import List, cast
+
+from importlib_resources import files
+
+import otherpkg.subpkg1.resources1 as resources1
 
 
 def is_animal(guess: str) -> bool:

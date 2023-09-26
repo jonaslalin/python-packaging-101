@@ -1,4 +1,4 @@
-from typing_extensions import NoReturn
+from typing import NoReturn
 
 
 def what_is_42() -> NoReturn:

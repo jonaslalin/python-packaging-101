@@ -1,5 +1,5 @@
-from mypkg.subpkg1.hello import hello
 from mypkg.subpkg1.fibo import fib2_inclusive
+from mypkg.subpkg1.hello import hello
 
 
 def test_fib2_inclusive() -> None:

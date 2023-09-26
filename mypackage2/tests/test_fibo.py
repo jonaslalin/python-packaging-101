@@ -1,9 +1,9 @@
+import pytest
+
 from fibo import fib, fib2
 
-from pytest import CaptureFixture
 
-
-def test_fib(capsys: CaptureFixture[str]) -> None:
+def test_fib(capsys: pytest.CaptureFixture[str]) -> None:
     fib(10)
     out, err = capsys.readouterr()
     assert out == "0 1 1 2 3 5 8 \n"

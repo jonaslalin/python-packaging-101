@@ -1,8 +1,9 @@
+import json
 from dataclasses import dataclass
 from typing import List, cast
-from typing_extensions import TypedDict
+
 from importlib_resources import files
-import json
+from typing_extensions import TypedDict
 
 
 @dataclass
