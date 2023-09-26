@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mypackage1"
+name = "mypackage2"
 version = "0.0.1"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -17,11 +17,7 @@ dynamic = ["dependencies"]
 dependencies = {file = "requirements.txt"}
 
 [tool.setuptools.packages.find]
-where = ["."]
-include = [
-    "mypkg*",
-    "otherpkg*",
-]
+where = ["src"]
 
 [tool.setuptools]
 py-modules = [
@@ -43,6 +39,12 @@ source_pkgs = [
     "mypkg",
     "otherpkg",
     "fibo",
+]
+
+[tool.coverage.paths]
+source = [
+    "src",
+    ".tox/**/site-packages",
 ]
 
 [tool.coverage.report]
@@ -86,7 +88,7 @@ select = [
     "C4",     # flake8-comprehensions
     "PT",     # flake8-pytest-style
 ]
-src = ["."]
+src = ["src"]
 
 [tool.tox]
 legacy_tox_ini = """
@@ -126,18 +128,18 @@ skip_install = true
 [testenv:black]
 deps =
     black
-commands = python -m black {posargs:mypkg otherpkg fibo.py tests}
+commands = python -m black {posargs:src tests}
 skip_install = true
 
 [testenv:mypy]
 deps =
     mypy
     pytest
-commands = python -m mypy {posargs:mypkg otherpkg fibo.py tests}
+commands = python -m mypy {posargs:src tests}
 
 [testenv:ruff]
 deps =
     ruff
-commands = python -m ruff {posargs:mypkg otherpkg fibo.py tests}
+commands = python -m ruff {posargs:src tests}
 skip_install = true
 """

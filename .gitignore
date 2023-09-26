@@ -3,10 +3,12 @@ __pycache__/
 .pytest_cache/
 .tox/
 .venv/
-.vscode/
+.vscode/*
 *.egg-info/
 build/
 dist/
 
-.coverage
+.coverage*
 .DS_Store
+
+!.vscode/settings.json

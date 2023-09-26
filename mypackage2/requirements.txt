@@ -1,0 +1,2 @@
+importlib_resources
+typing_extensions
