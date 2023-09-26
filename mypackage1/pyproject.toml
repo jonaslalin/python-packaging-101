@@ -77,6 +77,7 @@ addopts = [
 testpaths = ["tests"]
 
 [tool.ruff]
+fix = true
 line-length = 120
 select = [
     "F",      # Pyflakes
@@ -90,3 +91,50 @@ select = [
     "PT",     # flake8-pytest-style
 ]
 src = ["."]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+env_list =
+    py{38,39}
+skip_missing_interpreters = true
+
+[testenv]
+description = pytest
+deps =
+    pytest
+commands =
+    python -m pytest
+package = wheel
+wheel_build_env = .pkg
+
+[testenv:coverage]
+description = coverage
+deps =
+    coverage[toml]
+    pytest
+commands =
+    python -m coverage run
+    python -m coverage report
+
+[testenv:black]
+description = black
+deps =
+    black
+commands = python -m black {posargs:mypkg otherpkg fibo.py tests}
+skip_install = true
+
+[testenv:mypy]
+description = mypy
+deps =
+    mypy
+    pytest
+commands = python -m mypy {posargs:mypkg otherpkg fibo.py tests}
+
+[testenv:ruff]
+description = ruff
+deps =
+    ruff
+commands = python -m ruff {posargs:mypkg otherpkg fibo.py tests}
+skip_install = true
+"""
