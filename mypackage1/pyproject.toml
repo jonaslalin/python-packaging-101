@@ -93,8 +93,10 @@ legacy_tox_ini = """
 [tox]
 env_list =
     clean
-    py{38,39,310}
+    py{38, 39, 310}
     report
+labels =
+    check_and_format = black, mypy, ruff
 skip_missing_interpreters = true
 
 [testenv]
@@ -104,8 +106,8 @@ deps =
 commands =
     python -m coverage run
 depends =
-    py{38,39,310}: clean
-    report: py{38,39,310}
+    py{38, 39, 310}: clean
+    report: py{38, 39, 310}
 package = wheel
 wheel_build_env = .pkg
 
@@ -121,6 +123,7 @@ deps =
 commands =
     python -m coverage combine
     python -m coverage report
+parallel_show_output = true
 skip_install = true
 
 [testenv:black]

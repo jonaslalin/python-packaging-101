@@ -1,6 +1,7 @@
 __pycache__/
 .mypy_cache/
 .pytest_cache/
+.ruff_cache/
 .tox/
 .venv/
 .vscode/*
@@ -11,4 +12,5 @@ dist/
 .coverage*
 .DS_Store
 
+!.vscode/launch.json
 !.vscode/settings.json
