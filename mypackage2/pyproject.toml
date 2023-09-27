@@ -26,6 +26,11 @@ py-modules = [
 
 [tool.black]
 line-length = 120
+target-version = [
+    "py38",
+    "py39",
+    "py310",
+]
 
 [tool.coverage.run]
 branch = true
@@ -49,10 +54,10 @@ source = [
 
 [tool.coverage.report]
 show_missing = true
+skip_covered = false
 skip_empty = true
 
 [tool.mypy]
-python_version = "3.8"
 warn_unused_configs = true
 warn_redundant_casts = true
 warn_unused_ignores = true
@@ -75,7 +80,6 @@ addopts = [
 testpaths = ["tests"]
 
 [tool.ruff]
-fix = true
 line-length = 120
 select = [
     "F",      # Pyflakes
@@ -89,60 +93,84 @@ select = [
     "PT",     # flake8-pytest-style
 ]
 src = ["src"]
+target-version = "py38"
 
 [tool.tox]
 legacy_tox_ini = """
 [tox]
 env_list =
-    clean
     py{38, 39, 310}
-    report
-labels =
-    check_and_format = black, mypy, ruff
+    mypy-py{38, 39, 310}
+    black
+    ruff
 skip_missing_interpreters = true
 
 [testenv]
+description = run unit tests
+deps =
+    pytest
+commands =
+    python -m pytest
+package = wheel
+wheel_build_env = .pkg
+
+[testenv:coverageclean]
+description = delete coverage data
+deps =
+    coverage[toml]
+commands =
+    python -m coverage erase
+labels =
+    coverage
+skip_install = true
+
+[testenv:coveragerun-py{38, 39, 310}]
+description = measure code coverage
 deps =
     coverage[toml]
     pytest
 commands =
     python -m coverage run
 depends =
-    py{38, 39, 310}: clean
-    report: py{38, 39, 310}
-package = wheel
-wheel_build_env = .pkg
+    coverageclean
+labels =
+    coverage
 
-[testenv:clean]
-deps =
-    coverage[toml]
-commands = python -m coverage erase
-skip_install = true
-
-[testenv:report]
+[testenv:coveragereport]
+description = report code coverage
 deps =
     coverage[toml]
 commands =
     python -m coverage combine
     python -m coverage report
+depends =
+    coveragerun-py{38, 39, 310}
+labels =
+    coverage
+skip_install = true
 parallel_show_output = true
-skip_install = true
 
-[testenv:black]
-deps =
-    black
-commands = python -m black {posargs:src tests}
-skip_install = true
-
-[testenv:mypy]
+[testenv:mypy-py{38, 39, 310}]
+description = run type checks
 deps =
     mypy
     pytest
-commands = python -m mypy {posargs:src tests}
+commands =
+    python -m mypy {posargs:src tests}
+
+[testenv:black]
+description = run format checks
+deps =
+    black
+commands =
+    python -m black --check {posargs:src tests}
+skip_install = true
 
 [testenv:ruff]
+description = run lint checks
 deps =
     ruff
-commands = python -m ruff {posargs:src tests}
+commands =
+    python -m ruff {posargs:src tests}
 skip_install = true
 """
