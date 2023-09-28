@@ -1,4 +1,4 @@
-global-include py.typed
+include src/**/py.typed
 
 include src/otherpkg/subpkg1/holidays.json
 include src/otherpkg/subpkg1/resources1/*.json
