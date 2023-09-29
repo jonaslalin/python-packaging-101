@@ -19,9 +19,9 @@ dependencies = {file = "requirements.txt"}
 [tool.setuptools.packages.find]
 where = ["."]
 include = [
+    "fibo",
     "mypkg*",
     "otherpkg*",
-    "fibo",
 ]
 
 [tool.black]
@@ -41,9 +41,9 @@ disable_warnings = [
 ]
 parallel = true
 source_pkgs = [
+    "fibo",
     "mypkg",
     "otherpkg",
-    "fibo",
 ]
 
 [tool.coverage.report]
@@ -151,14 +151,17 @@ deps =
     mypy
     pytest
 commands =
-    python -m mypy {posargs:mypkg otherpkg fibo tests}
+    python -m mypy -p fibo
+    python -m mypy -p mypkg
+    python -m mypy -p otherpkg
+    python -m mypy tests
 
 [testenv:black]
 description = run format checks
 deps =
     black
 commands =
-    python -m black --check {posargs:mypkg otherpkg fibo tests}
+    python -m black --check fibo mypkg otherpkg tests
 skip_install = true
 
 [testenv:ruff]
@@ -166,6 +169,6 @@ description = run lint checks
 deps =
     ruff
 commands =
-    python -m ruff {posargs:mypkg otherpkg fibo tests}
+    python -m ruff fibo mypkg otherpkg tests
 skip_install = true
 """

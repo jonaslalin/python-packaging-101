@@ -36,9 +36,9 @@ disable_warnings = [
 ]
 parallel = true
 source_pkgs = [
+    "fibo",
     "mypkg",
     "otherpkg",
-    "fibo",
 ]
 
 [tool.coverage.paths]
@@ -152,14 +152,17 @@ deps =
     mypy
     pytest
 commands =
-    python -m mypy {posargs:src tests}
+    python -m mypy -p fibo
+    python -m mypy -p mypkg
+    python -m mypy -p otherpkg
+    python -m mypy tests
 
 [testenv:black]
 description = run format checks
 deps =
     black
 commands =
-    python -m black --check {posargs:src tests}
+    python -m black --check src tests
 skip_install = true
 
 [testenv:ruff]
@@ -167,6 +170,6 @@ description = run lint checks
 deps =
     ruff
 commands =
-    python -m ruff {posargs:src tests}
+    python -m ruff src tests
 skip_install = true
 """
