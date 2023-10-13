@@ -1,5 +1,5 @@
 {
     "python.analysis.extraPaths": [
-        "mypackage2/src"
+        "mypackage2/src/"
     ]
 }

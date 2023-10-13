@@ -14,8 +14,8 @@
             },
             "pathMappings": [
                 {
-                    "localRoot": "${workspaceFolder}/mypackage1",
-                    "remoteRoot": "."
+                    "localRoot": "${workspaceFolder}/mypackage1/",
+                    "remoteRoot": "./"
                 }
             ],
             "justMyCode": true
@@ -30,8 +30,8 @@
             },
             "pathMappings": [
                 {
-                    "localRoot": "${workspaceFolder}/mypackage2",
-                    "remoteRoot": "."
+                    "localRoot": "${workspaceFolder}/mypackage2/",
+                    "remoteRoot": "./"
                 }
             ],
             "justMyCode": true

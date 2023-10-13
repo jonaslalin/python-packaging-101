@@ -43,8 +43,8 @@ source_pkgs = [
 
 [tool.coverage.paths]
 source = [
-    "src",
-    ".tox/**/site-packages",
+    "src/",
+    ".tox/**/site-packages/",
 ]
 
 [tool.coverage.report]
@@ -73,7 +73,7 @@ addopts = [
     "--import-mode=importlib",
     "--verbose",
 ]
-testpaths = ["tests"]
+testpaths = ["tests/"]
 
 [tool.ruff]
 line-length = 120
@@ -88,7 +88,7 @@ select = [
     "C4",     # flake8-comprehensions
     "PT",     # flake8-pytest-style
 ]
-src = ["src"]
+src = ["src/"]
 target-version = "py38"
 
 [tool.tox]
@@ -155,14 +155,14 @@ commands =
     python -m mypy -p fibo
     python -m mypy -p mypkg
     python -m mypy -p otherpkg
-    python -m mypy tests
+    python -m mypy tests/
 
 [testenv:black]
 description = run format checks
 deps =
     black
 commands =
-    python -m black --check src tests
+    python -m black --check src/ tests/
 skip_install = true
 
 [testenv:ruff]
@@ -170,6 +170,6 @@ description = run lint checks
 deps =
     ruff
 commands =
-    python -m ruff src tests
+    python -m ruff src/ tests/
 skip_install = true
 """
