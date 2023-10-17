@@ -1,13 +1,5 @@
 # python-packaging-101
 
-## Setup
-
-```sh
-python -m venv .venv
-source .venv/bin/activate # or .venv\Scripts\activate for cmd.exe
-pip install -r requirements-dev.txt
-```
-
 ## Naming Conventions
 
 ### Distribution Package Name

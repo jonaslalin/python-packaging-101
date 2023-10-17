@@ -1,0 +1,9 @@
+black
+build
+coverage[toml]
+debugpy
+mypy
+pytest
+ruff
+tox
+twine
