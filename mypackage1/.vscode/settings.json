@@ -1,5 +1,3 @@
 {
-    "mypy-type-checker.path": [
-        "${workspaceFolder}/.venv/bin/mypy"
-    ]
+    "mypy-type-checker.preferDaemon": false
 }
