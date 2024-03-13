@@ -1,6 +1,0 @@
-include fibo/py.typed
-include mypkg/py.typed
-include otherpkg/py.typed
-
-include otherpkg/subpkg1/holidays.json
-include otherpkg/subpkg1/resources1/*.json

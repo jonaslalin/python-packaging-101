@@ -91,7 +91,8 @@ legacy_tox_ini = """
 env_list =
     py{38, 39, 310}
     mypy-py{38, 39, 310}
-    ruff
+    ruffformat
+    rufflint
 skip_missing_interpreters = true
 
 [testenv]
