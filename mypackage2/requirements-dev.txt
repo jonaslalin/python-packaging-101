@@ -1,4 +1,3 @@
-black
 build
 coverage[toml]
 debugpy
