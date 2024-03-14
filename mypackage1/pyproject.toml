@@ -70,6 +70,10 @@ testpaths = ["tests/"]
 
 [tool.ruff]
 line-length = 120
+src = ["./"]
+target-version = "py38"
+
+[tool.ruff.lint]
 select = [
     "F",      # Pyflakes
     "E", "W", # pycodestyle
@@ -81,8 +85,6 @@ select = [
     "C4",     # flake8-comprehensions
     "PT",     # flake8-pytest-style
 ]
-src = ["./"]
-target-version = "py38"
 
 [tool.tox]
 legacy_tox_ini = """
