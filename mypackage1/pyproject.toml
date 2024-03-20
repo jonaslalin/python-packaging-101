@@ -169,6 +169,6 @@ description = run lint checks
 deps =
     ruff
 commands =
-    python -m ruff check --check fibo/ mypkg/ otherpkg/ tests/
+    python -m ruff check fibo/ mypkg/ otherpkg/ tests/
 skip_install = true
 """

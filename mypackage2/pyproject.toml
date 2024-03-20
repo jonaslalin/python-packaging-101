@@ -170,7 +170,7 @@ description = run lint checks
 deps =
     ruff
 commands =
-    python -m ruff check --check src/ tests/
+    python -m ruff check src/ tests/
 skip_install = true
 """
 
