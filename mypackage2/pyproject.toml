@@ -87,6 +87,10 @@ select = [
     "PT",     # flake8-pytest-style
 ]
 
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
+
 [tool.tox]
 legacy_tox_ini = """
 [tox]
@@ -151,7 +155,7 @@ commands =
     python -m mypy -p fibo
     python -m mypy -p mypkg
     python -m mypy -p otherpkg
-    python -m mypy tests/
+    python -m mypy --explicit-package-bases tests/
 
 [testenv:ruffformat]
 description = run format checks
