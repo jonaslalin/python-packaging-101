@@ -32,6 +32,7 @@ parallel = true
 source_pkgs = [
     "fibo",
     "mypkg",
+    "namespacepkg",
     "otherpkg",
 ]
 
@@ -47,6 +48,10 @@ skip_covered = false
 skip_empty = true
 
 [tool.mypy]
+explicit_package_bases = true
+mypy_path = [
+    "$MYPY_CONFIG_FILE_DIR/src/",
+]
 warn_unused_configs = true
 warn_redundant_casts = true
 warn_unused_ignores = true
@@ -95,8 +100,8 @@ mark-parentheses = false
 legacy_tox_ini = """
 [tox]
 env_list =
-    py{38, 39, 310}
-    mypy-py{38, 39, 310}
+    py{38, 39, 310, 311, 312}
+    mypy-py{38, 39, 310, 311, 312}
     ruffformat
     rufflint
 skip_missing_interpreters = true
@@ -120,7 +125,7 @@ labels =
     coverage
 skip_install = true
 
-[testenv:coveragerun-py{38, 39, 310}]
+[testenv:coveragerun-py{38, 39, 310, 311, 312}]
 description = measure code coverage
 deps =
     coverage[toml]
@@ -140,13 +145,13 @@ commands =
     python -m coverage combine
     python -m coverage report
 depends =
-    coveragerun-py{38, 39, 310}
+    coveragerun-py{38, 39, 310, 311, 312}
 labels =
     coverage
 skip_install = true
 parallel_show_output = true
 
-[testenv:mypy-py{38, 39, 310}]
+[testenv:mypy-py{38, 39, 310, 311, 312}]
 description = run type checks
 deps =
     mypy
@@ -154,8 +159,9 @@ deps =
 commands =
     python -m mypy -p fibo
     python -m mypy -p mypkg
+    python -m mypy -p namespacepkg
     python -m mypy -p otherpkg
-    python -m mypy --explicit-package-bases tests/
+    python -m mypy tests/
 
 [testenv:ruffformat]
 description = run format checks
