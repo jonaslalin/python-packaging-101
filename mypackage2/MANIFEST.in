@@ -1,2 +1,2 @@
-include otherpkg/subpkg1/holidays.json
-include otherpkg/subpkg1/resources1/animals.json
+include src/otherpkg/subpkg1/holidays.json
+include src/otherpkg/subpkg1/resources1/animals.json
