@@ -1,16 +1,19 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm>=8"]
+requires = ["setuptools>=64"]
+# requires = ["setuptools>=64", "setuptools_scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "mypackage2"
+version = "0.0.1"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {file = "LICENSE"}
 authors = [
     {name = "My Name", email = "my.name@example.com"},
 ]
-dynamic = ["dependencies", "version"]
+dynamic = ["dependencies"]
+# dynamic = ["dependencies", "version"]
 
 [tool.setuptools_scm]
 # can be empty if no extra settings are needed, presence enables setuptools_scm

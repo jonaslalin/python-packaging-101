@@ -2,8 +2,7 @@ from typing_extensions import Protocol, Self
 
 
 class SupportsAdd(Protocol):
-    def __add__(self, other: Self) -> Self:
-        ...
+    def __add__(self, other: Self) -> Self: ...
 
 
 def reduce(*args: SupportsAdd, acc: SupportsAdd) -> SupportsAdd:

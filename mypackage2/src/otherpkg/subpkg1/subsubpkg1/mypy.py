@@ -7,8 +7,9 @@ def greeting(name: str) -> str:
 
 #     if sys.version_info >= (3, 10):
 #         return greeting(123)
-#     if sys.version_info >= (3, 9):
+#     elif sys.version_info >= (3, 9):
 #         return greeting(b"Alice")
-#     if sys.version_info >= (3, 8):
+#     elif sys.version_info >= (3, 8):  # noqa: UP036
 #         return greeting("Bob")
-#     return greeting(True)
+#     else:
+#         return greeting(True)
