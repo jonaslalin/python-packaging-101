@@ -1,0 +1,186 @@
+[build-system]
+requires = ["setuptools>=64"]
+# requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skeleton"
+version = "0.0.1"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+    {name = "My Name", email = "my.name@example.com"},
+]
+dynamic = ["dependencies"]
+# dynamic = ["dependencies", "version"]
+
+[tool.setuptools_scm]
+# can be empty if no extra settings are needed, presence enables setuptools_scm
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+
+[tool.setuptools.packages.find]
+where = ["src/"]
+
+[tool.coverage.run]
+branch = true
+command_line = "-m pytest"
+disable_warnings = [
+    "module-not-imported",
+    "no-data-collected",
+]
+parallel = true
+source_pkgs = [
+    "mypkg",
+]
+
+[tool.coverage.paths]
+source = [
+    "src/",
+    ".tox/**/site-packages/",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+skip_empty = true
+
+[tool.mypy]
+explicit_package_bases = true
+mypy_path = [
+    "$MYPY_CONFIG_FILE_DIR/src/",
+]
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+strict_equality = true
+extra_checks = true
+check_untyped_defs = true
+disallow_subclassing_any = true
+disallow_untyped_decorators = true
+disallow_any_generics = true
+disallow_untyped_calls = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+no_implicit_reexport = true
+warn_return_any = true
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+    "--verbose",
+]
+testpaths = ["tests/"]
+
+[tool.ruff]
+line-length = 120
+src = ["src/"]
+target-version = "py38"
+
+[tool.ruff.lint]
+select = [
+    "F",      # Pyflakes
+    "E", "W", # pycodestyle
+    "C90",    # mccabe
+    "I",      # isort
+    "N",      # pep8-naming
+    "UP",     # pyupgrade
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "PT",     # flake8-pytest-style
+]
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+env_list =
+    py{38, 39, 310, 311, 312}
+    mypy-py{38, 39, 310, 311, 312}
+    ruffformat
+    rufflint
+skip_missing_interpreters = true
+
+[testenv]
+description = run unit tests
+deps =
+    pytest
+allowlist_externals =
+    sh
+commands =
+    sh -c '[ -z "$(find tests/ -type f -a -name "*.py")" ] && echo "Skipping pytest" || pytest'
+package = wheel
+wheel_build_env = .pkg
+
+[testenv:coverageclean]
+description = delete coverage data
+deps =
+    coverage[toml]
+commands =
+    coverage erase
+labels =
+    coverage
+skip_install = true
+
+[testenv:coveragerun-py{38, 39, 310, 311, 312}]
+description = measure code coverage
+deps =
+    coverage[toml]
+    pytest
+allowlist_externals =
+    sh
+commands =
+    sh -c '[ -z "$(find tests/ -type f -a -name "*.py")" ] && echo "Skipping coverage run" || coverage run'
+depends =
+    coverageclean
+labels =
+    coverage
+
+[testenv:coveragereport]
+description = report code coverage
+deps =
+    coverage[toml]
+allowlist_externals =
+    sh
+commands =
+    sh -c '[ -z "$(find . -type f -a -name ".coverage.*")" ] && echo "Skipping coverage combine" || coverage combine'
+    sh -c '[ -z "$(find . -type f -a -name ".coverage")" ] && echo "Skipping coverage report" || coverage report'
+depends =
+    coveragerun-py{38, 39, 310, 311, 312}
+labels =
+    coverage
+skip_install = true
+parallel_show_output = true
+
+[testenv:mypy-py{38, 39, 310, 311, 312}]
+description = run type checks
+deps =
+    mypy
+    pytest
+allowlist_externals =
+    sh
+commands =
+    mypy -p mypkg
+    sh -c '[ -z "$(find tests/ -type f -a \\( -name "*.py" -o -name "*.pyi" \\))" ] && echo "Skipping mypy tests/" || mypy tests/'
+
+[testenv:ruffformat]
+description = run format checks
+deps =
+    ruff
+commands =
+    ruff format --check src/ tests/
+skip_install = true
+
+[testenv:rufflint]
+description = run lint checks
+deps =
+    ruff
+commands =
+    ruff check src/ tests/
+skip_install = true
+"""
