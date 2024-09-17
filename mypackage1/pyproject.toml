@@ -113,8 +113,10 @@ skip_missing_interpreters = true
 description = run unit tests
 deps =
     pytest
+allowlist_externals =
+    sh
 commands =
-    python -m pytest
+    sh -c '[ -z "$(find tests/ -type f -a -name "*.py")" ] && echo "Skipping pytest" || pytest'
 package = wheel
 wheel_build_env = .pkg
 
@@ -123,7 +125,7 @@ description = delete coverage data
 deps =
     coverage[toml]
 commands =
-    python -m coverage erase
+    coverage erase
 labels =
     coverage
 skip_install = true
@@ -133,8 +135,10 @@ description = measure code coverage
 deps =
     coverage[toml]
     pytest
+allowlist_externals =
+    sh
 commands =
-    python -m coverage run
+    sh -c '[ -z "$(find tests/ -type f -a -name "*.py")" ] && echo "Skipping coverage run" || coverage run'
 depends =
     coverageclean
 labels =
@@ -144,9 +148,11 @@ labels =
 description = report code coverage
 deps =
     coverage[toml]
+allowlist_externals =
+    sh
 commands =
-    python -m coverage combine
-    python -m coverage report
+    sh -c '[ -z "$(find . -type f -a -name ".coverage.*")" ] && echo "Skipping coverage combine" || coverage combine'
+    sh -c '[ -z "$(find . -type f -a -name ".coverage")" ] && echo "Skipping coverage report" || coverage report'
 depends =
     coveragerun-py{38, 39, 310, 311, 312}
 labels =
@@ -159,19 +165,21 @@ description = run type checks
 deps =
     mypy
     pytest
+allowlist_externals =
+    sh
 commands =
-    python -m mypy -p fibo
-    python -m mypy -p mypkg
-    python -m mypy -p namespacepkg
-    python -m mypy -p otherpkg
-    python -m mypy tests/
+    mypy -p fibo
+    mypy -p mypkg
+    mypy -p namespacepkg
+    mypy -p otherpkg
+    sh -c '[ -z "$(find tests/ -type f -a \\( -name "*.py" -o -name "*.pyi" \\))" ] && echo "Skipping mypy tests/" || mypy tests/'
 
 [testenv:ruffformat]
 description = run format checks
 deps =
     ruff
 commands =
-    python -m ruff format --check fibo/ mypkg/ namespacepkg/ otherpkg/ tests/
+    ruff format --check fibo/ mypkg/ namespacepkg/ otherpkg/ tests/
 skip_install = true
 
 [testenv:rufflint]
@@ -179,6 +187,6 @@ description = run lint checks
 deps =
     ruff
 commands =
-    python -m ruff check fibo/ mypkg/ namespacepkg/ otherpkg/ tests/
+    ruff check fibo/ mypkg/ namespacepkg/ otherpkg/ tests/
 skip_install = true
 """
